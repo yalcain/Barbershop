@@ -1,0 +1,3242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jeff's Barbershop</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --black: #161412;
+    --black-soft: #201d19;
+    --charcoal: #2b2723;
+    --grey: #8a8378;
+    --grey-light: #b9b2a5;
+    --cream: #f1ece3;
+    --orange: #d9661c;
+    --orange-bright: #ec7a2c;
+    --line: #3a352f;
+
+    --font-display: 'Big Shoulders Display', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+}
+
+.wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+
+    background: rgba(22, 20, 18, 0.92);
+    backdrop-filter: blur(6px);
+
+    border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 24px;
+
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+
+    letter-spacing: 0.02em;
+
+    text-decoration: none;
+    color: var(--cream);
+
+    white-space: nowrap;
+}
+
+.brand .pole {
+    width: 14px;
+    height: 30px;
+
+    border-radius: 7px;
+
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            var(--orange) 0 6px,
+            var(--cream) 6px 12px,
+            var(--charcoal) 12px 18px
+        );
+
+    flex-shrink: 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+nav .navlinks {
+    display: flex;
+    gap: 28px;
+}
+
+nav a.navlink {
+    font-size: 15px;
+    font-weight: 500;
+
+    color: var(--grey-light);
+
+    text-decoration: none;
+
+    transition: color 0.15s ease;
+}
+
+nav a.navlink:hover {
+    color: var(--cream);
+}
+
+@media (max-width: 720px) {
+
+    nav .navlinks {
+        display: none;
+    }
+
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14.5px;
+
+    border: none;
+    border-radius: 3px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.12s ease,
+        background 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    background: var(--orange);
+    color: var(--black);
+}
+
+.btn-primary:hover {
+    background: var(--orange-bright);
+}
+
+.btn-ghost {
+    background: transparent;
+
+    color: var(--cream);
+
+    border: 1px solid var(--line);
+}
+
+.btn-ghost:hover {
+    border-color: var(--grey);
+}
+
+
+/* =========================
+   ACCOUNT CHIP
+========================= */
+
+.account-chip {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    background: var(--black-soft);
+
+    border: 1px solid var(--line);
+
+    padding: 6px 8px 6px 14px;
+
+    border-radius: 30px;
+}
+
+.account-chip .avatar {
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+    color: var(--black);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+.account-chip span.name {
+    font-size: 14px;
+    font-weight: 600;
+
+    max-width: 100px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-chip button {
+    background: transparent;
+    border: none;
+
+    color: var(--grey-light);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 4px 8px;
+}
+
+.account-chip button:hover {
+    color: var(--orange-bright);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    padding: 96px 24px 80px;
+
+    position: relative;
+    overflow: hidden;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.hero-inner {
+    max-width: 1080px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: 1.3fr 0.7fr;
+
+    gap: 48px;
+
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.eyebrow {
+    color: var(--orange);
+
+    font-weight: 600;
+    font-size: 15px;
+
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-family: var(--font-display);
+
+    font-weight: 900;
+
+    font-size: clamp(46px, 7vw, 84px);
+
+    line-height: 0.92;
+
+    letter-spacing: 0.005em;
+
+    color: var(--cream);
+}
+
+.hero p.sub {
+    margin-top: 22px;
+
+    font-size: 18px;
+
+    color: var(--grey-light);
+
+    max-width: 480px;
+}
+
+.hero-ctas {
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 34px;
+
+    flex-wrap: wrap;
+}
+
+.hero-ctas .btn {
+    padding: 14px 26px;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   BARBER POLE
+========================= */
+
+.pole-graphic {
+    width: 100%;
+
+    aspect-ratio: 1 / 1.15;
+
+    border-radius: 6px;
+
+    background: var(--black-soft);
+
+    border: 1px solid var(--line);
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.pole-graphic .stripe {
+    width: 46%;
+    height: 78%;
+
+    border-radius: 40px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            var(--orange) 0 22px,
+            var(--cream) 22px 44px,
+            var(--charcoal) 44px 66px
+        );
+
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.35);
+}
+
+.pole-graphic .cap {
+    position: absolute;
+
+    width: 46%;
+    height: 10%;
+
+    background: var(--grey-light);
+
+    border-radius: 30px;
+
+    left: 27%;
+}
+
+.pole-graphic .cap.top {
+    top: 8%;
+}
+
+.pole-graphic .cap.bottom {
+    bottom: 8%;
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+section {
+    padding: 80px 24px;
+}
+
+.section-head {
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 44px;
+
+    border-bottom: 1px solid var(--line);
+
+    padding-bottom: 20px;
+}
+
+h2 {
+    font-family: var(--font-display);
+
+    font-weight: 700;
+
+    font-size: clamp(32px, 4vw, 44px);
+}
+
+.section-head p {
+    color: var(--grey-light);
+
+    font-size: 15px;
+
+    max-width: 300px;
+
+    text-align: right;
+}
+
+@media (max-width: 640px) {
+
+    .section-head {
+        flex-direction: column;
+    }
+
+    .section-head p {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.services-list {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.service-row {
+    display: grid;
+
+    grid-template-columns: 1fr auto auto;
+
+    gap: 20px;
+
+    align-items: baseline;
+
+    padding: 22px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.service-row:first-child {
+    padding-top: 0;
+}
+
+.service-row .name {
+    font-family: var(--font-display);
+
+    font-weight: 600;
+
+    font-size: 24px;
+}
+
+.service-row .desc {
+    grid-column: 1;
+
+    color: var(--grey-light);
+
+    font-size: 14.5px;
+
+    margin-top: -6px;
+}
+
+.service-row .time {
+    color: var(--grey);
+
+    font-size: 14px;
+
+    white-space: nowrap;
+}
+
+.service-row .price {
+    font-family: var(--font-display);
+
+    font-weight: 700;
+
+    font-size: 22px;
+
+    color: var(--orange-bright);
+
+    white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+
+    .service-row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .service-row .time {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+}
+
+
+/* =========================
+   INFO
+========================= */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 48px;
+}
+
+@media (max-width: 720px) {
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.info-block h3 {
+    font-family: var(--font-display);
+
+    font-weight: 600;
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+
+    color: var(--orange-bright);
+}
+
+.hours-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 9px 0;
+
+    border-bottom: 1px dashed var(--line);
+
+    font-size: 15px;
+}
+
+.hours-row span:first-child {
+    color: var(--grey-light);
+}
+
+.info-block p {
+    color: var(--grey-light);
+
+    font-size: 15px;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================
+   LIVE QUEUE
+========================= */
+
+#queueSection {
+    display: none;
+}
+
+#queueSection.show {
+    display: block;
+}
+
+.queue-container {
+    background: var(--black-soft);
+
+    border: 1px solid var(--line);
+
+    border-radius: 8px;
+
+    padding: 36px;
+}
+
+.queue-top {
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 30px;
+
+    align-items: center;
+}
+
+@media (max-width: 650px) {
+
+    .queue-top {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.queue-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #76c893;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 12px;
+}
+
+.queue-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #76c893;
+
+    box-shadow: 0 0 0 5px rgba(118, 200, 147, 0.10);
+}
+
+.queue-container h3 {
+    font-family: var(--font-display);
+
+    font-size: 30px;
+
+    margin-bottom: 5px;
+}
+
+.queue-container .queue-message {
+    color: var(--grey-light);
+
+    font-size: 14px;
+}
+
+.queue-number-box {
+    min-width: 150px;
+
+    text-align: center;
+
+    padding: 20px;
+
+    border: 1px solid var(--line);
+
+    background: var(--black);
+
+    border-radius: 6px;
+}
+
+.queue-number-box span {
+    display: block;
+
+    color: var(--grey);
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+
+    margin-bottom: 5px;
+}
+
+.queue-number {
+    font-family: var(--font-display);
+
+    font-size: 48px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    color: var(--orange-bright);
+}
+
+.queue-info {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+@media (max-width: 650px) {
+
+    .queue-info {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.queue-card {
+    background: var(--black);
+
+    border: 1px solid var(--line);
+
+    padding: 18px;
+
+    border-radius: 5px;
+}
+
+.queue-card .label {
+    display: block;
+
+    color: var(--grey);
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+
+    text-transform: uppercase;
+}
+
+.queue-card .value {
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+.queue-progress {
+    margin-top: 28px;
+}
+
+.queue-progress-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--grey-light);
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+
+    height: 8px;
+
+    background: var(--charcoal);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    width: 45%;
+
+    background: var(--orange);
+
+    border-radius: 10px;
+
+    transition: width 0.4s ease;
+}
+
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.account-panel {
+    background: var(--black-soft);
+
+    border: 1px solid var(--line);
+
+    border-radius: 8px;
+
+    padding: 36px;
+
+    display: grid;
+
+    grid-template-columns: auto 1fr auto;
+
+    align-items: center;
+
+    gap: 24px;
+}
+
+@media (max-width: 640px) {
+
+    .account-panel {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+}
+
+.account-panel .avatar-lg {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+
+    color: var(--black);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-display);
+
+    font-weight: 700;
+
+    font-size: 26px;
+
+    margin: 0 auto;
+}
+
+.account-panel h3 {
+    font-family: var(--font-display);
+
+    font-weight: 700;
+
+    font-size: 26px;
+}
+
+.account-panel p {
+    color: var(--grey-light);
+
+    font-size: 14.5px;
+
+    margin-top: 4px;
+}
+
+.punch-row {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 14px;
+
+    flex-wrap: wrap;
+}
+
+.punch {
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+
+    border: 1.5px solid var(--line);
+}
+
+.punch.filled {
+    background: var(--orange);
+
+    border-color: var(--orange);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 40px 24px;
+
+    border-top: 1px solid var(--line);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+footer .brand {
+    font-size: 18px;
+}
+
+footer .foot-note {
+    color: var(--grey);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(10, 9, 8, 0.7);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 100;
+
+    padding: 20px;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    position: relative;
+
+    background: var(--black-soft);
+
+    border: 1px solid var(--line);
+
+    border-radius: 8px;
+
+    padding: 36px;
+
+    width: 100%;
+
+    max-width: 420px;
+}
+
+.modal h3 {
+    font-family: var(--font-display);
+
+    font-weight: 700;
+
+    font-size: 28px;
+
+    margin-bottom: 4px;
+}
+
+.modal .modal-sub {
+    color: var(--grey-light);
+
+    font-size: 14px;
+
+    margin-bottom: 24px;
+}
+
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: var(--grey-light);
+
+    margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+
+    background: var(--black);
+
+    border: 1px solid var(--line);
+
+    border-radius: 4px;
+
+    padding: 11px 12px;
+
+    color: var(--cream);
+
+    font-family: var(--font-body);
+
+    font-size: 15px;
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+
+    border-color: var(--orange);
+}
+
+.modal .btn-primary {
+    width: 100%;
+
+    padding: 13px;
+
+    font-size: 15px;
+
+    margin-top: 6px;
+}
+
+.modal-error {
+    color: #e8846a;
+
+    font-size: 13.5px;
+
+    margin-top: -6px;
+
+    margin-bottom: 14px;
+
+    display: none;
+}
+
+.modal-error.show {
+    display: block;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 18px;
+
+    right: 18px;
+
+    background: none;
+
+    border: none;
+
+    color: var(--grey-light);
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    line-height: 1;
+}
+
+.modal-toggle {
+    text-align: center;
+
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    color: var(--grey-light);
+}
+
+.modal-toggle button {
+    background: none;
+
+    border: none;
+
+    color: var(--orange-bright);
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    text-decoration: underline;
+}
+
+.modal-note {
+    font-size: 12px;
+
+    color: var(--grey);
+
+    margin-top: 18px;
+
+    text-align: center;
+}
+
+
+/* =========================
+   BOOKING MODAL
+========================= */
+
+.booking-summary {
+    background: var(--black);
+
+    border: 1px solid var(--line);
+
+    padding: 15px;
+
+    border-radius: 5px;
+
+    margin-bottom: 18px;
+}
+
+.booking-summary strong {
+    display: block;
+
+    font-family: var(--font-display);
+
+    font-size: 21px;
+
+    margin-bottom: 2px;
+}
+
+.booking-summary span {
+    color: var(--grey-light);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+.success-message {
+    text-align: center;
+
+    padding: 10px 0;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: rgba(118, 200, 147, 0.12);
+
+    border: 1px solid #76c893;
+
+    color: #76c893;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+.success-message h3 {
+    margin-bottom: 8px;
+}
+
+.success-message p {
+    color: var(--grey-light);
+
+    font-size: 14px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="header-inner">
+
+<a href="#top" class="brand">
+
+<span class="pole"></span>
+
+JEFF'S BARBERSHOP
+
+</a>
+
+
+<nav>
+
+<div class="navlinks">
+
+<a class="navlink" href="#services">
+Services
+</a>
+
+<a class="navlink" href="#info">
+Hours &amp; Location
+</a>
+
+<a class="navlink" href="#queueSection">
+Live Queue
+</a>
+
+</div>
+
+
+<div id="authArea"></div>
+
+</nav>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="top">
+
+<div class="hero-inner">
+
+
+<div>
+
+<div class="eyebrow">
+EST. ON THE CORNER, STILL HERE
+</div>
+
+
+<h1>
+A GOOD CUT<br>
+SHOULDN'T BE<br>
+RUSHED.
+</h1>
+
+
+<p class="sub">
+
+Straight-razor fades, honest beard work, and a chair
+that's been broken in right. Jeff's has been cutting
+this neighborhood's hair for years — walk-ins welcome,
+regulars remembered.
+
+</p>
+
+
+<div class="hero-ctas">
+
+<!-- BOOKING NOW DOES NOT REQUIRE LOGIN -->
+
+<button
+    class="btn btn-primary"
+    id="heroBookBtn">
+
+    Book an Appointment
+
+</button>
+
+
+<a
+    href="#services"
+    class="btn btn-ghost">
+
+    See services
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="pole-graphic" aria-hidden="true">
+
+<div class="cap top"></div>
+
+<div class="stripe"></div>
+
+<div class="cap bottom"></div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<div class="wrap">
+
+<div class="section-head">
+
+<h2>
+Services
+</h2>
+
+<p>
+Every cut ends with a hot towel. No exceptions.
+</p>
+
+</div>
+
+
+<div class="services-list">
+
+
+<div class="service-row">
+
+<div class="name"> Classic Cut </div>
+<div class="time"> 30 min </div>
+<div class="price"> ₱250 </div>
+
+<div class="desc"> Scissor or clipper, your call, finished with a straight-razor neckline. </div>
+
+</div>
+
+
+
+<div class="service-row">
+
+<div class="name">
+Skin Fade
+</div>
+
+<div class="time">
+40 min
+</div>
+
+<div class="price">
+₱350
+</div>
+
+<div class="desc">
+Clean blend down to skin, sharp line-up included.
+</div>
+
+</div>
+
+
+
+<div class="service-row">
+
+<div class="name">
+Beard Trim &amp; Line-up
+</div>
+
+<div class="time">
+20 min
+</div>
+
+<div class="price">
+₱150
+</div>
+
+<div class="desc">
+Shaped, edged, and conditioned. Pairs well with any cut.
+</div>
+
+</div>
+
+
+
+<div class="service-row">
+
+<div class="name">
+Hot Towel Shave
+</div>
+
+<div class="time">
+35 min
+</div>
+
+<div class="price">
+₱200
+</div>
+
+<div class="desc">
+Straight razor, warm towel, pre-shave oil. The full sit-down.
+</div>
+
+</div>
+
+
+
+<div class="service-row">
+
+<div class="name">
+Cut + Beard Combo
+</div>
+
+<div class="time">
+50 min
+</div>
+
+<div class="price">
+₱450
+</div>
+
+<div class="desc">
+Classic or fade, plus a full beard trim and line-up.
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- INFO -->
+
+<section id="info">
+
+<div class="wrap">
+
+<div class="section-head">
+
+<h2>
+Hours &amp; Location
+</h2>
+
+<p>
+No appointment needed — but online bookings can be tracked through the live queue.
+</p>
+
+</div>
+
+
+<div class="info-grid">
+
+
+<div class="info-block">
+
+<h3>
+Hours
+</h3>
+
+<div class="hours-row">
+<span>Monday</span>
+<span>Closed</span>
+</div>
+
+<div class="hours-row">
+<span>Tuesday – Friday</span>
+<span>9:00 AM – 7:00 PM</span>
+</div>
+
+<div class="hours-row">
+<span>Saturday</span>
+<span>8:00 AM – 6:00 PM</span>
+</div>
+
+<div class="hours-row">
+<span>Sunday</span>
+<span>10:00 AM – 4:00 PM</span>
+</div>
+
+</div>
+
+
+
+<div class="info-block">
+
+<h3>
+Find Us
+</h3>
+
+<p>
+Block306 Lot9 Maya St Barangay Rizal, 1208
+</p>
+
+<p>
+Street parking out front, small lot around back.
+</p>
+
+<p>
+(555) 019-4482
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     LIVE QUEUE
+========================= -->
+
+<section id="queueSection">
+
+<div class="wrap">
+
+<div class="section-head">
+
+<h2>
+Live Queueing
+</h2>
+
+<p>
+Your appointment is confirmed. Track your position in real time.
+</p>
+
+</div>
+
+
+<div class="queue-container">
+
+
+<div class="queue-top">
+
+
+<div>
+
+<div class="queue-status">
+
+<span class="queue-dot"></span>
+
+LIVE QUEUE
+
+</div>
+
+
+<h3 id="queueGreeting">
+You're in the queue.
+</h3>
+
+
+<p class="queue-message" id="queueMessage">
+Please wait for your turn.
+</p>
+
+</div>
+
+
+<div class="queue-number-box">
+
+<span>
+Your Queue Number
+</span>
+
+<div
+    class="queue-number"
+    id="queueNumber">
+
+    Q-001
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="queue-info">
+
+
+<div class="queue-card">
+
+<span class="label">
+Customer
+</span>
+
+<span
+    class="value"
+    id="queueCustomer">
+
+    Customer
+
+</span>
+
+</div>
+
+
+<div class="queue-card">
+
+<span class="label">
+Service
+</span>
+
+<span
+    class="value"
+    id="queueService">
+
+    Classic Cut
+
+</span>
+
+</div>
+
+
+<div class="queue-card">
+
+<span class="label">
+Estimated Wait
+</span>
+
+<span
+    class="value"
+    id="queueWait">
+
+    10 minutes
+
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<div class="queue-progress">
+
+<div class="queue-progress-head">
+
+<span>
+Queue Progress
+</span>
+
+<span id="queuePosition">
+Position 1
+</span>
+
+</div>
+
+
+<div class="progress-bar">
+
+<div
+    class="progress-fill"
+    id="progressFill">
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="brand">
+
+<span
+    class="pole"
+    style="width:10px;height:22px;">
+</span>
+
+JEFF'S BARBERSHOP
+
+</div>
+
+
+<div class="foot-note">
+
+© 2026 Jeff's Barbershop ·
+Block306 Lot9 Maya St Barangay Rizal, 1208
+
+</div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     BOOKING MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="bookingModal">
+
+
+<div class="modal">
+
+
+<button
+    class="modal-close"
+    id="bookingCloseBtn"
+    aria-label="Close">
+
+    &times;
+
+</button>
+
+
+<h3>
+Book an Appointment
+</h3>
+
+
+<p class="modal-sub">
+No account required. Book directly and receive your queue number.
+</p>
+
+
+
+<form id="bookingForm">
+
+
+<div class="field">
+
+<label for="bookingName">
+Your Name
+</label>
+
+<input
+    type="text"
+    id="bookingName"
+    placeholder="Enter your name"
+    required>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="bookingPhone">
+Contact Number
+</label>
+
+<input
+    type="tel"
+    id="bookingPhone"
+    placeholder="09XXXXXXXXX"
+    required>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="bookingService">
+Select Service
+</label>
+
+<select
+    id="bookingService"
+    required>
+
+<option value="">
+Choose a service
+</option>
+
+<option value="Classic Cut">
+Classic Cut — ₱250
+</option>
+
+<option value="Skin Fade">
+Skin Fade — ₱350
+</option>
+
+<option value="Beard Trim & Line-up">
+Beard Trim & Line-up — ₱150
+</option>
+
+<option value="Hot Towel Shave">
+Hot Towel Shave — ₱200
+</option>
+
+<option value="Cut + Beard Combo">
+Cut + Beard Combo — ₱450
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="bookingDate">
+Appointment Date
+</label>
+
+<input
+    type="date"
+    id="bookingDate"
+    required>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="bookingTime">
+Preferred Time
+</label>
+
+<input
+    type="time"
+    id="bookingTime"
+    required>
+
+</div>
+
+
+<div
+    class="modal-error"
+    id="bookingError">
+</div>
+
+
+<button
+    type="submit"
+    class="btn btn-primary">
+
+    Confirm Appointment
+
+</button>
+
+
+</form>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     LOGIN MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="authModal">
+
+
+<div class="modal">
+
+
+<button
+    class="modal-close"
+    id="modalCloseBtn"
+    aria-label="Close">
+
+    &times;
+
+</button>
+
+
+<h3 id="modalTitle">
+Log in
+</h3>
+
+
+<p
+    class="modal-sub"
+    id="modalSub">
+
+    Welcome back to Jeff's.
+
+</p>
+
+
+<form id="authForm">
+
+
+<div
+    class="field"
+    id="nameField"
+    style="display:none;">
+
+<label for="nameInput">
+Name
+</label>
+
+<input
+    type="text"
+    id="nameInput"
+    placeholder="Your name"
+    autocomplete="name">
+
+</div>
+
+
+
+<div class="field">
+
+<label for="emailInput">
+Email
+</label>
+
+<input
+    type="email"
+    id="emailInput"
+    placeholder="you@email.com"
+    autocomplete="email"
+    required>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="passwordInput">
+Password
+</label>
+
+<input
+    type="password"
+    id="passwordInput"
+    placeholder="••••••••"
+    autocomplete="current-password"
+    required>
+
+</div>
+
+
+
+<div
+    class="modal-error"
+    id="modalError">
+</div>
+
+
+
+<button
+    type="submit"
+    class="btn btn-primary"
+    id="modalSubmitBtn">
+
+    Log in
+
+</button>
+
+
+</form>
+
+
+
+<div class="modal-toggle">
+
+<span id="toggleText">
+New here?
+</span>
+
+<button
+    type="button"
+    id="toggleModeBtn">
+
+    Create an account
+
+</button>
+
+</div>
+
+
+<p class="modal-note">
+Demo login: your account is stored in this browser only.
+</p>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+(function() {
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const STORAGE_USERS =
+    'jeffs_barbershop_users';
+
+const STORAGE_SESSION =
+    'jeffs_barbershop_session';
+
+const STORAGE_QUEUE =
+    'jeffs_barbershop_queue';
+
+const DEMO_EMAIL =
+    'demo@jeffsbarbershop.com';
+
+const DEMO_PASSWORD =
+    'Demo1234';
+
+
+let mode = 'login';
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const authArea =
+    document.getElementById('authArea');
+
+const accountArea =
+    document.getElementById('accountArea');
+
+const accountSectionSub =
+    document.getElementById('accountSectionSub');
+
+
+/* LOGIN */
+
+const modalOverlay =
+    document.getElementById('authModal');
+
+const modalTitle =
+    document.getElementById('modalTitle');
+
+const modalSub =
+    document.getElementById('modalSub');
+
+const modalError =
+    document.getElementById('modalError');
+
+const nameField =
+    document.getElementById('nameField');
+
+const nameInput =
+    document.getElementById('nameInput');
+
+const emailInput =
+    document.getElementById('emailInput');
+
+const passwordInput =
+    document.getElementById('passwordInput');
+
+const authForm =
+    document.getElementById('authForm');
+
+const modalSubmitBtn =
+    document.getElementById('modalSubmitBtn');
+
+const toggleText =
+    document.getElementById('toggleText');
+
+const toggleModeBtn =
+    document.getElementById('toggleModeBtn');
+
+
+/* BOOKING */
+
+const bookingModal =
+    document.getElementById('bookingModal');
+
+const bookingForm =
+    document.getElementById('bookingForm');
+
+const bookingError =
+    document.getElementById('bookingError');
+
+
+/* QUEUE */
+
+const queueSection =
+    document.getElementById('queueSection');
+
+const queueNumber =
+    document.getElementById('queueNumber');
+
+const queueCustomer =
+    document.getElementById('queueCustomer');
+
+const queueService =
+    document.getElementById('queueService');
+
+const queueWait =
+    document.getElementById('queueWait');
+
+const queuePosition =
+    document.getElementById('queuePosition');
+
+const queueGreeting =
+    document.getElementById('queueGreeting');
+
+const queueMessage =
+    document.getElementById('queueMessage');
+
+const progressFill =
+    document.getElementById('progressFill');
+
+
+/* =====================================================
+   USER STORAGE
+===================================================== */
+
+function getUsers() {
+
+    try {
+
+        const raw =
+            localStorage.getItem(STORAGE_USERS);
+
+        return raw ? JSON.parse(raw) : {};
+
+    } catch (e) {
+
+        return {};
+
+    }
+
+}
+
+
+function saveUsers(users) {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_USERS,
+            JSON.stringify(users)
+        );
+
+    } catch (e) {}
+
+}
+
+
+function getSession() {
+
+    try {
+
+        const raw =
+            localStorage.getItem(STORAGE_SESSION);
+
+        return raw ? JSON.parse(raw) : null;
+
+    } catch (e) {
+
+        return null;
+
+    }
+
+}
+
+
+function setSession(email) {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_SESSION,
+            JSON.stringify({
+                email: email
+            })
+        );
+
+    } catch (e) {}
+
+}
+
+
+function clearSession() {
+
+    try {
+
+        localStorage.removeItem(
+            STORAGE_SESSION
+        );
+
+    } catch (e) {}
+
+}
+
+
+/* =====================================================
+   QUEUE STORAGE
+===================================================== */
+
+function getQueue() {
+
+    try {
+
+        const raw =
+            localStorage.getItem(STORAGE_QUEUE);
+
+        return raw ? JSON.parse(raw) : [];
+
+    } catch (e) {
+
+        return [];
+
+    }
+
+}
+
+
+function saveQueue(queue) {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_QUEUE,
+            JSON.stringify(queue)
+        );
+
+    } catch (e) {}
+
+}
+
+
+/* =====================================================
+   QUEUE NUMBER
+===================================================== */
+
+function getNextQueueNumber() {
+
+    const queue = getQueue();
+
+    if (queue.length === 0) {
+        return 1;
+    }
+
+    return queue.length + 1;
+
+}
+
+
+/* =====================================================
+   OPEN BOOKING
+===================================================== */
+
+function openBookingModal() {
+
+    bookingError.classList.remove('show');
+
+    bookingForm.reset();
+
+    /*
+       IMPORTANT:
+       No login check here.
+
+       The user can book directly.
+    */
+
+    bookingModal.classList.add('open');
+
+}
+
+
+/* =====================================================
+   CLOSE BOOKING
+===================================================== */
+
+function closeBookingModal() {
+
+    bookingModal.classList.remove('open');
+
+}
+
+
+document
+    .getElementById('bookingCloseBtn')
+    .addEventListener(
+        'click',
+        closeBookingModal
+    );
+
+
+bookingModal.addEventListener(
+    'click',
+    function(e) {
+
+        if (e.target === bookingModal) {
+
+            closeBookingModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   BOOK APPOINTMENT
+===================================================== */
+
+bookingForm.addEventListener(
+    'submit',
+    function(e) {
+
+        e.preventDefault();
+
+
+        const name =
+            document
+                .getElementById('bookingName')
+                .value
+                .trim();
+
+
+        const phone =
+            document
+                .getElementById('bookingPhone')
+                .value
+                .trim();
+
+
+        const service =
+            document
+                .getElementById('bookingService')
+                .value;
+
+
+        const date =
+            document
+                .getElementById('bookingDate')
+                .value;
+
+
+        const time =
+            document
+                .getElementById('bookingTime')
+                .value;
+
+
+        if (!name ||
+            !phone ||
+            !service ||
+            !date ||
+            !time) {
+
+            bookingError.textContent =
+                'Please complete all booking fields.';
+
+            bookingError.classList.add('show');
+
+            return;
+
+        }
+
+
+        /*
+           Create new queue record
+        */
+
+        const queue =
+            getQueue();
+
+
+        const number =
+            getNextQueueNumber();
+
+
+        const newAppointment = {
+
+            queueNumber: number,
+
+            name: name,
+
+            phone: phone,
+
+            service: service,
+
+            date: date,
+
+            time: time,
+
+            status: 'Waiting',
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        queue.push(newAppointment);
+
+        saveQueue(queue);
+
+
+        /*
+           Close booking modal
+        */
+
+        closeBookingModal();
+
+
+        /*
+           Show live queue
+        */
+
+        showLiveQueue(
+            newAppointment
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SHOW LIVE QUEUE
+===================================================== */
+
+function showLiveQueue(appointment) {
+
+    queueSection.classList.add('show');
+
+
+    queueNumber.textContent =
+        'Q-' +
+        String(
+            appointment.queueNumber
+        ).padStart(3, '0');
+
+
+    queueCustomer.textContent =
+        appointment.name;
+
+
+    queueService.textContent =
+        appointment.service;
+
+
+    /*
+       Simple estimated wait.
+       Each person = approximately 10 minutes.
+    */
+
+    const wait =
+        appointment.queueNumber * 10;
+
+
+    queueWait.textContent =
+        wait + ' minutes';
+
+
+    queuePosition.textContent =
+        'Position ' +
+        appointment.queueNumber;
+
+
+    queueGreeting.textContent =
+    "You're in the queue, " +
+    appointment.name +
+    ".";
+
+
+    queueMessage.textContent =
+        'Your appointment has been confirmed. Please wait for your turn.';
+
+
+    /*
+       Progress bar
+    */
+
+    let progress =
+        Math.max(
+            10,
+            100 -
+            (appointment.queueNumber - 1) * 12
+        );
+
+
+    progress =
+        Math.min(
+            progress,
+            100
+        );
+
+
+    progressFill.style.width =
+        progress + '%';
+
+
+    /*
+       Automatically scroll to queue
+    */
+
+    setTimeout(
+        function() {
+
+            queueSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+        },
+        200
+    );
+
+}
+
+
+/* =====================================================
+   HERO BOOK BUTTON
+===================================================== */
+
+/*
+   IMPORTANT CHANGE:
+
+   Before:
+   - Check login
+   - Login/signup
+
+   Now:
+   - Directly opens booking form
+*/
+
+document
+    .getElementById('heroBookBtn')
+    .addEventListener(
+        'click',
+        function() {
+
+            openBookingModal();
+
+        }
+    );
+
+
+/* =====================================================
+   LOGIN SYSTEM
+===================================================== */
+
+function initials(name) {
+
+    return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(
+            w => w[0].toUpperCase()
+        )
+        .join('');
+
+}
+
+
+/* =====================================================
+   DEMO ACCOUNT
+===================================================== */
+
+function ensureDemoUser() {
+
+    const users =
+        getUsers();
+
+
+    if (!users[DEMO_EMAIL]) {
+
+        users[DEMO_EMAIL] = {
+
+            name: 'Demo Customer',
+
+            password: DEMO_PASSWORD,
+
+            punches: 0
+
+        };
+
+
+        saveUsers(users);
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN MODAL
+===================================================== */
+
+function openModal(startMode) {
+
+    mode = startMode;
+
+    modalError.classList.remove('show');
+
+    authForm.reset();
+
+    updateModalMode();
+
+    modalOverlay.classList.add('open');
+
+    emailInput.focus();
+
+}
+
+
+function closeModal() {
+
+    modalOverlay.classList.remove('open');
+
+}
+
+
+function updateModalMode() {
+
+    if (mode === 'login') {
+
+        modalTitle.textContent =
+            'Log in';
+
+        modalSub.textContent =
+            "Welcome back to Jeff's.";
+
+        nameField.style.display =
+            'none';
+
+        nameInput.required =
+            false;
+
+        modalSubmitBtn.textContent =
+            'Log in';
+
+        toggleText.textContent =
+            'New here?';
+
+        toggleModeBtn.textContent =
+            'Create an account';
+
+        passwordInput.setAttribute(
+            'autocomplete',
+            'current-password'
+        );
+
+    } else {
+
+        modalTitle.textContent =
+            'Create account';
+
+        modalSub.textContent =
+            "Set up your account at Jeff's.";
+
+        nameField.style.display =
+            'block';
+
+        nameInput.required =
+            true;
+
+        modalSubmitBtn.textContent =
+            'Create account';
+
+        toggleText.textContent =
+            'Already have an account?';
+
+        toggleModeBtn.textContent =
+            'Log in';
+
+        passwordInput.setAttribute(
+            'autocomplete',
+            'new-password'
+        );
+
+    }
+
+}
+
+
+toggleModeBtn.addEventListener(
+    'click',
+    function() {
+
+        mode =
+            mode === 'login'
+                ? 'signup'
+                : 'login';
+
+        modalError.classList.remove(
+            'show'
+        );
+
+        updateModalMode();
+
+    }
+);
+
+
+document
+    .getElementById('modalCloseBtn')
+    .addEventListener(
+        'click',
+        closeModal
+    );
+
+
+modalOverlay.addEventListener(
+    'click',
+    function(e) {
+
+        if (e.target === modalOverlay) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOGIN / SIGNUP SUBMIT
+===================================================== */
+
+authForm.addEventListener(
+    'submit',
+    function(e) {
+
+        e.preventDefault();
+
+
+        const email =
+            emailInput.value
+                .trim()
+                .toLowerCase();
+
+
+        const password =
+            passwordInput.value;
+
+
+        const users =
+            getUsers();
+
+
+        if (mode === 'signup') {
+
+            const name =
+                nameInput.value.trim();
+
+
+            if (!name) {
+
+                showError(
+                    'Enter your name.'
+                );
+
+                return;
+
+            }
+
+
+            if (users[email]) {
+
+                showError(
+                    'An account with that email already exists.'
+                );
+
+                return;
+
+            }
+
+
+            users[email] = {
+
+                name: name,
+
+                password: password,
+
+                punches: 0
+
+            };
+
+
+            saveUsers(users);
+
+            setSession(email);
+
+            closeModal();
+
+            render();
+
+        } else {
+
+            const user =
+                users[email];
+
+
+            if (
+                !user ||
+                user.password !== password
+            ) {
+
+                showError(
+                    'No match for that email and password.'
+                );
+
+                return;
+
+            }
+
+
+            setSession(email);
+
+            closeModal();
+
+            render();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOGIN ERROR
+===================================================== */
+
+function showError(msg) {
+
+    modalError.textContent =
+        msg;
+
+    modalError.classList.add(
+        'show'
+    );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logOut() {
+
+    clearSession();
+
+    render();
+
+}
+
+
+/* =====================================================
+   PUNCH CARD
+===================================================== */
+
+function addPunch() {
+
+    const session =
+        getSession();
+
+
+    if (!session) return;
+
+
+    const users =
+        getUsers();
+
+
+    const user =
+        users[session.email];
+
+
+    if (!user) return;
+
+
+    user.punches =
+        Math.min(
+            (user.punches || 0) + 1,
+            8
+        );
+
+
+    if (user.punches >= 8) {
+
+        user.punches = 0;
+
+    }
+
+
+    saveUsers(users);
+
+    render();
+
+}
+
+
+/* =====================================================
+   RENDER ACCOUNT
+===================================================== */
+
+function render() {
+
+    const session =
+        getSession();
+
+
+    const users =
+        getUsers();
+
+
+    const user =
+        session
+            ? users[session.email]
+            : null;
+
+
+    if (user) {
+
+
+        /*
+           Logged-in header
+        */
+
+        authArea.innerHTML =
+
+            '<div class="account-chip">' +
+
+                '<div class="avatar">' +
+
+                    initials(user.name) +
+
+                '</div>' +
+
+                '<span class="name">' +
+
+                    escapeHtml(
+                        user.name.split(' ')[0]
+                    ) +
+
+                '</span>' +
+
+                '<button id="logoutBtnHeader">' +
+
+                    'Log out' +
+
+                '</button>' +
+
+            '</div>';
+
+
+        document
+            .getElementById(
+                'logoutBtnHeader'
+            )
+            .addEventListener(
+                'click',
+                logOut
+            );
+
+
+        accountSectionSub.textContent =
+            "You're logged in. Here's your punch card.";
+
+
+        const punches =
+            user.punches || 0;
+
+
+        let punchHtml = '';
+
+
+        for (
+            let i = 0;
+            i < 8;
+            i++
+        ) {
+
+            punchHtml +=
+
+                '<div class="punch' +
+
+                (
+                    i < punches
+                        ? ' filled'
+                        : ''
+                ) +
+
+                '"></div>';
+
+        }
+
+
+        accountArea.innerHTML =
+
+            '<div class="account-panel">' +
+
+                '<div class="avatar-lg">' +
+
+                    initials(user.name) +
+
+                '</div>' +
+
+
+                '<div>' +
+
+                    '<h3>' +
+
+                        escapeHtml(
+                            user.name
+                        ) +
+
+                    '</h3>' +
+
+
+                    '<p>' +
+
+                        escapeHtml(
+                            session.email
+                        ) +
+
+                        ' · ' +
+
+                        punches +
+
+                        ' of 8 cuts toward a free trim' +
+
+                    '</p>' +
+
+
+                    '<div class="punch-row">' +
+
+                        punchHtml +
+
+                    '</div>' +
+
+                '</div>' +
+
+
+                '<div style="display:flex; flex-direction:column; gap:10px;">' +
+
+                    '<button class="btn btn-primary" id="punchBtn">' +
+
+                        'Log a visit' +
+
+                    '</button>' +
+
+
+                    '<button class="btn btn-ghost" id="logoutBtnPanel">' +
+
+                        'Log out' +
+
+                    '</button>' +
+
+                '</div>' +
+
+            '</div>';
+
+
+        document
+            .getElementById('punchBtn')
+            .addEventListener(
+                'click',
+                addPunch
+            );
+
+
+        document
+            .getElementById('logoutBtnPanel')
+            .addEventListener(
+                'click',
+                logOut
+            );
+
+
+    } else {
+
+
+        /*
+           Not logged in
+
+           This is ONLY for the account section.
+           Booking does NOT use this anymore.
+        */
+
+        authArea.innerHTML =
+
+            '<button class="btn btn-primary" id="loginBtnHeader">' +
+
+                'Log in' +
+
+            '</button>';
+
+
+        document
+            .getElementById('loginBtnHeader')
+            .addEventListener(
+                'click',
+                function() {
+
+                    openModal('login');
+
+                }
+            );
+
+
+        accountSectionSub.textContent =
+            'Log in to track your visits and punch card.';
+
+
+        accountArea.innerHTML =
+
+            '<div class="account-panel" style="grid-template-columns: 1fr auto; text-align:left;">' +
+
+                '<div>' +
+
+                    '<h3>Not logged in</h3>' +
+
+                    '<p>Create an account to save your info and track your visit history.</p>' +
+
+                '</div>' +
+
+                '<button class="btn btn-primary" id="accountLoginBtn">' +
+
+                    'Log in / Sign up' +
+
+                '</button>' +
+
+            '</div>';
+
+
+        document
+            .getElementById('accountLoginBtn')
+            .addEventListener(
+                'click',
+                function() {
+
+                    openModal('login');
+
+                }
+            );
+
+    }
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(str) {
+
+    const div =
+        document.createElement('div');
+
+    div.textContent =
+        str;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+ensureDemoUser();
+
+render();
+
+
+})();
+
+</script>
+
+</body>
+</html>
