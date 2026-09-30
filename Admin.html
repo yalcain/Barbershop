@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jeff's Barbershop - Admin Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --black: #161412;
+    --black-soft: #1e1b18;
+    --black-card: #24201c;
+
+    --charcoal: #2b2723;
+
+    --cream: #f1ece3;
+    --cream-soft: #d8d0c3;
+
+    --grey: #8a8378;
+    --grey-light: #aaa297;
+
+    --orange: #d9661c;
+    --orange-bright: #ed7a2d;
+
+    --green: #6fc38a;
+    --red: #d96c5f;
+    --yellow: #d6a94a;
+
+    --line: #38322c;
+
+    --display: 'Big Shoulders Display', sans-serif;
+    --body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--body);
+    min-height: 100vh;
+}
+
+button {
+    font-family: inherit;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* LAYOUT */
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 245px;
+    background: #12110f;
+    border-right: 1px solid var(--line);
+    padding: 25px 16px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 5px 10px 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+}
+
+.logo-pole {
+    width: 12px;
+    height: 30px;
+    border-radius: 8px;
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            var(--orange) 0 6px,
+            var(--cream) 6px 12px,
+            var(--charcoal) 12px 18px
+        );
+}
+
+.logo-text {
+    font-family: var(--display);
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 0.9;
+}
+.admin-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-top: 4px;
+}
+
+
+/*NAVIGATION */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.nav-section {
+    color: var(--grey);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    padding: 14px 12px 7px;
+}
+.nav-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--grey-light);
+    padding: 12px 13px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.15s ease;
+}
+.nav-item:hover {
+    background: var(--black-card);
+    color: var(--cream);
+}
+.nav-item.active {
+    background: rgba(217, 102, 28, 0.14);
+    color: var(--orange-bright);
+    border-left: 3px solid var(--orange);
+    padding-left: 10px;
+}
+.nav-icon {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/*SIDEBAR BOTTOM*/
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+.admin-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+}
+.admin-info {
+    min-width: 0;
+}
+.admin-name {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-role {
+    font-size: 11px;
+    color: var(--grey);
+}
+
+
+/*MAIN*/
+
+.main {
+    margin-left: 245px;
+    width: calc(100% - 245px);
+    min-height: 100vh;
+}
+
+/*TOPBAR */
+.topbar {
+    height: 72px;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(22, 20, 18, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+}
+.page-title {
+    font-family: var(--display);
+    font-size: 27px;
+    font-weight: 700;
+}
+.page-subtitle {
+    color: var(--grey);
+    font-size: 12px;
+    margin-top: 1px;
+}
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.notification {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--line);
+    background: var(--black-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    cursor: pointer;
+}
+.notification-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+}
+.top-admin {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.top-admin-avatar {
+    width: 34px;
+    height: 34px;
+    background: var(--orange);
+    color: var(--black);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+}
+.top-admin-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/*CONTENT */
+.content {
+    padding: 30px 32px 50px;
+}
+
+
+/*WELCOME*/
+.welcome {
+    margin-bottom: 28px;
+}
+.welcome h1 {
+    font-family: var(--display);
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 800;
+}
+.welcome p {
+    color: var(--grey-light);
+    font-size: 13.5px;
+    margin-top: 6px;
+}
+
+
+/*STAT CARDS*/
+.stats-grid {
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 28px;
+}
+.stat-card {
+    background: var(--black-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.stat-card::after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    right: -25px;
+    bottom: -30px;
+    border-radius: 50%;
+    background: rgba(217, 102, 28, 0.08);
+}
+.stat-label {
+    color: var(--grey);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+.stat-value {
+    font-family: var(--display);
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 1;
+}
+.stat-change {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--grey-light);
+}
+.stat-change.green {
+    color: var(--green);
+}
+.stat-change.orange {
+    color: var(--orange-bright);
+}
+
+
+/*GRID */ 
+.dashboard-grid {
+    display: grid;
+    grid-template-columns:minmax(0, 1.4fr)minmax(280px, 0.6fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+/*PANEL*/
+
+.panel {
+    background: var(--black-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.panel-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.panel-title {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+}
+.panel-link {
+    font-size: 11px;
+    color: var(--orange-bright);
+    cursor: pointer;
+    font-weight: 600;
+}
+.panel-body {
+    padding: 0;
+}
+
+
+/*QUEUE TABLE*/
+
+.queue-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.queue-table th {
+    text-align: left;
+    padding: 12px 18px;
+    color: var(--grey);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+}
+.queue-table td {
+    padding: 15px 18px;
+    font-size: 12.5px;
+    border-bottom: 1px solid rgba(56, 50, 44, 0.65);
+    color: var(--cream-soft);
+}
+.queue-table tr:last-child td {
+    border-bottom: none;
+}
+.queue-number {
+    color: var(--orange-bright);
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 800;
+}
+.customer-name {
+    color: var(--cream);
+    font-weight: 600;
+}
+.service-name {
+    color: var(--grey-light);
+}
+.status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+}
+.status.waiting {
+    background: rgba(214, 169, 74, 0.12);
+    color: var(--yellow);
+}
+.status.serving {
+    background: rgba(111, 195, 138, 0.12);
+    color: var(--green);
+}
+.status.completed {
+    background: rgba(138, 131, 120, 0.12);
+    color: var(--grey-light);
+}
+.status.cancelled {
+    background: rgba(217, 108, 95, 0.12);
+    color: var(--red);
+}
+
+/*ACTION BUTTON */
+.action-btn {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--grey-light);
+    padding: 6px 10px;
+    border-radius: 3px;
+    font-size: 10px;
+    cursor: pointer;
+}
+.action-btn:hover {
+    border-color: var(--orange);
+    color: var(--orange-bright);
+}
+
+
+/* =========================================
+   RIGHT PANEL */
+
+.queue-summary {
+    padding: 20px;
+}
+
+
+.current-queue {
+    text-align: center;
+
+    padding: 15px 0 24px;
+}
+
+
+.current-label {
+    color: var(--grey);
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.1em;
+
+    font-size: 10px;
+
+    margin-bottom: 7px;
+}
+
+
+.current-number {
+    font-family: var(--display);
+
+    font-size: 65px;
+
+    font-weight: 900;
+
+    line-height: 0.9;
+
+    color: var(--orange-bright);
+}
+
+
+.current-customer {
+    margin-top: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.current-service {
+    color: var(--grey);
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+
+.queue-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+
+.btn {
+    border: none;
+
+    border-radius: 3px;
+
+    padding: 10px 13px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.btn-primary {
+    background: var(--orange);
+
+    color: var(--black);
+}
+
+
+.btn-primary:hover {
+    background: var(--orange-bright);
+}
+
+
+.btn-dark {
+    background: var(--charcoal);
+
+    color: var(--cream);
+
+    border: 1px solid var(--line);
+}
+
+
+.btn-dark:hover {
+    border-color: var(--grey);
+}
+
+
+/* =========================================
+   APPOINTMENTS
+========================================= */
+
+.appointment-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+.appointment-table th {
+    padding: 12px 18px;
+
+    text-align: left;
+
+    color: var(--grey);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.appointment-table td {
+    padding: 15px 18px;
+
+    font-size: 12px;
+
+    border-bottom: 1px solid rgba(56, 50, 44, 0.65);
+}
+
+
+.appointment-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
+.quick-actions {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    padding: 20px;
+}
+
+
+.quick-action {
+    background: var(--black);
+
+    border: 1px solid var(--line);
+
+    border-radius: 5px;
+
+    padding: 16px;
+
+    cursor: pointer;
+
+    transition: 0.15s ease;
+}
+
+
+.quick-action:hover {
+    border-color: var(--orange);
+
+    transform: translateY(-1px);
+}
+
+
+.quick-icon {
+    font-size: 20px;
+
+    margin-bottom: 10px;
+}
+
+
+.quick-title {
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.quick-desc {
+    color: var(--grey);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 1050px) {
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 70px;
+
+        padding: 20px 8px;
+    }
+
+    .logo-text,
+    .admin-label,
+    .nav-section,
+    .nav-item span:not(.nav-icon),
+    .admin-info {
+        display: none;
+    }
+
+    .logo {
+        justify-content: center;
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nav-item {
+        justify-content: center;
+
+        padding: 12px 5px;
+    }
+
+    .nav-item.active {
+        padding-left: 5px;
+    }
+
+    .admin-profile {
+        justify-content: center;
+
+        padding: 5px;
+    }
+
+    .main {
+        margin-left: 70px;
+
+        width: calc(100% - 70px);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .content {
+        padding: 22px 18px 40px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top-admin-name {
+        display: none;
+    }
+
+    .queue-table {
+        min-width: 650px;
+    }
+
+    .panel {
+        overflow-x: auto;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar">
+
+
+<div class="logo">
+
+    <div class="logo-pole"></div>
+
+    <div>
+
+        <div class="logo-text">
+            JEFF'S
+        </div>
+
+        <div class="admin-label">
+            ADMIN PANEL
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<nav class="sidebar-nav">
+
+
+<div class="nav-section">
+    Main
+</div>
+
+
+<button class="nav-item active">
+    <a href="Admin.html" class="nav-item">
+        <span class="nav-icon">⌂</span>
+        <span>Dashboard</span>
+    </a>
+</button>
+
+
+<button class="nav-item">
+
+    <a href="Live_queueing.html" class="nav-item active">
+        <span class="nav-icon">◷</span>
+        <span>Live Queue</span>
+    </a>
+
+</button>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">▣</span>
+
+    <span>Appointments</span>
+
+</button>
+
+
+
+<div class="nav-section">
+    Management
+</div>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">✂</span>
+
+    <span>Services</span>
+
+</button>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">▤</span>
+
+    <span>Inventory</span>
+
+</button>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">₱</span>
+
+    <span>Sales</span>
+
+</button>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">♙</span>
+
+    <span>Staff</span>
+
+</button>
+
+
+
+<div class="nav-section">
+    Reports
+</div>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">▤</span>
+
+    <span>Reports</span>
+
+</button>
+
+
+<div class="nav-section">
+    System
+</div>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">⚙</span>
+
+    <span>Settings</span>
+
+</button>
+
+
+</nav>
+
+
+
+<div class="sidebar-bottom">
+
+<div class="admin-profile">
+
+    <div class="admin-avatar">
+        JA
+    </div>
+
+    <div class="admin-info">
+
+        <div class="admin-name">
+            Admin
+        </div>
+
+        <div class="admin-role">
+            Administrator
+        </div>
+
+    </div>
+
+</div>
+
+
+<button
+    class="nav-item">
+
+    <span class="nav-icon">
+        ↪
+    </span>
+
+    <span>
+        Logout
+    </span>
+
+</button>
+
+</div>
+
+
+</aside>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main">
+
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+
+<div>
+
+<div class="page-title">
+    Dashboard
+</div>
+
+<div class="page-subtitle">
+    Jeff's Barbershop Management System
+</div>
+
+</div>
+
+
+
+<div class="topbar-right">
+
+
+<button class="notification">
+
+    ♢
+
+    <span class="notification-dot"></span>
+
+</button>
+
+
+<div class="top-admin">
+
+    <div class="top-admin-avatar">
+        JA
+    </div>
+
+    <div class="top-admin-name">
+        Admin
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- CONTENT -->
+
+<div class="content">
+
+
+<!-- WELCOME -->
+
+<div class="welcome">
+
+<h1>
+Good morning, Admin.
+</h1>
+
+<p>
+Here's what's happening at Jeff's Barbershop today.
+</p>
+
+</div>
+
+
+
+<!-- =========================================
+     STATISTICS
+========================================= -->
+
+<div class="stats-grid">
+
+
+<div class="stat-card">
+
+<div class="stat-label">
+    Waiting Customers
+</div>
+
+<div class="stat-value">
+    08
+</div>
+
+<div class="stat-change orange">
+    Currently in queue
+</div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<div class="stat-label">
+    Today's Appointments
+</div>
+
+<div class="stat-value">
+    24
+</div>
+
+<div class="stat-change green">
+    +6 from yesterday
+</div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<div class="stat-label">
+    Today's Sales
+</div>
+
+<div class="stat-value">
+    ₱8,450
+</div>
+
+<div class="stat-change green">
+    +12.5% from yesterday
+</div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<div class="stat-label">
+    Low Stock Items
+</div>
+
+<div class="stat-value">
+    03
+</div>
+
+<div class="stat-change orange">
+    Needs attention
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     QUEUE + CURRENT CUSTOMER
+========================================= -->
+
+<div class="dashboard-grid">
+
+
+<!-- LIVE QUEUE -->
+
+<div class="panel">
+
+
+<div class="panel-header">
+
+<div class="panel-title">
+    Live Queue
+</div>
+
+<div class="panel-link">
+    View all →
+</div>
+
+</div>
+
+
+<div class="panel-body">
+
+<table class="queue-table">
+
+<thead>
+
+<tr>
+
+<th>
+Queue
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Service
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td>
+<span class="queue-number">
+Q-001
+</span>
+</td>
+
+<td>
+<span class="customer-name">
+Juan Dela Cruz
+</span>
+</td>
+
+<td>
+<span class="service-name">
+Skin Fade
+</span>
+</td>
+
+<td>
+
+<span class="status serving">
+Serving
+</span>
+
+</td>
+
+<td>
+
+<button class="action-btn">
+View
+</button>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<span class="queue-number">
+Q-002
+</span>
+</td>
+
+<td>
+<span class="customer-name">
+Maria Santos
+</span>
+</td>
+
+<td>
+<span class="service-name">
+Classic Cut
+</span>
+</td>
+
+<td>
+
+<span class="status waiting">
+Waiting
+</span>
+
+</td>
+
+<td>
+
+<button class="action-btn">
+Start
+</button>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<span class="queue-number">
+Q-003
+</span>
+</td>
+
+<td>
+<span class="customer-name">
+Pedro Cruz
+</span>
+</td>
+
+<td>
+<span class="service-name">
+Beard Trim
+</span>
+
+</td>
+
+<td>
+
+<span class="status waiting">
+Waiting
+</span>
+
+</td>
+
+<td>
+
+<button class="action-btn">
+Start
+</button>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<span class="queue-number">
+Q-004
+</span>
+</td>
+
+<td>
+<span class="customer-name">
+Ana Reyes
+</span>
+</td>
+
+<td>
+<span class="service-name">
+Cut + Beard
+</span>
+
+</td>
+
+<td>
+
+<span class="status waiting">
+Waiting
+</span>
+
+</td>
+
+<td>
+
+<button class="action-btn">
+Start
+</button>
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<!-- CURRENT CUSTOMER -->
+
+<div class="panel">
+
+
+<div class="panel-header">
+
+<div class="panel-title">
+    Now Serving
+</div>
+
+<span class="status serving">
+    LIVE
+</span>
+
+</div>
+
+
+<div class="queue-summary">
+
+
+<div class="current-queue">
+
+<div class="current-label">
+    Queue Number
+</div>
+
+<div class="current-number">
+    Q-001
+</div>
+
+<div class="current-customer">
+    Juan Dela Cruz
+</div>
+
+<div class="current-service">
+    Skin Fade · Barber: Jeff
+</div>
+
+</div>
+
+
+<div class="queue-actions">
+
+<button class="btn btn-primary">
+    Complete
+</button>
+
+<button class="btn btn-dark">
+    Skip
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     APPOINTMENTS
+========================================= -->
+
+<div class="panel">
+
+
+<div class="panel-header">
+
+<div class="panel-title">
+    Today's Appointments
+</div>
+
+<div class="panel-link">
+    View all →
+</div>
+
+</div>
+
+
+<div class="panel-body">
+
+<table class="appointment-table">
+
+<thead>
+
+<tr>
+
+<th>
+Time
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Service
+</th>
+
+<th>
+Barber
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td>
+09:00 AM
+</td>
+
+<td>
+Juan Dela Cruz
+</td>
+
+<td>
+Skin Fade
+</td>
+
+<td>
+Jeff
+</td>
+
+<td>
+
+<span class="status serving">
+Confirmed
+</span>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+09:30 AM
+</td>
+
+<td>
+Maria Santos
+</td>
+
+<td>
+Classic Cut
+</td>
+
+<td>
+Mark
+</td>
+
+<td>
+
+<span class="status waiting">
+Waiting
+</span>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+10:00 AM
+</td>
+
+<td>
+Pedro Cruz
+</td>
+
+<td>
+Beard Trim
+</td>
+
+<td>
+Jeff
+</td>
+
+<td>
+
+<span class="status waiting">
+Waiting
+</span>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+10:30 AM
+</td>
+
+<td>
+Ana Reyes
+</td>
+
+<td>
+Cut + Beard
+</td>
+
+<td>
+Carlo
+</td>
+
+<td>
+
+<span class="status completed">
+Completed
+</span>
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<br>
+
+
+<!-- =========================================
+     QUICK ACTIONS
+========================================= -->
+
+<div class="panel">
+
+
+<div class="panel-header">
+
+<div class="panel-title">
+    Quick Actions
+</div>
+
+</div>
+
+
+<div class="quick-actions">
+
+
+<div class="quick-action">
+
+<div class="quick-icon">
+    ◷
+</div>
+
+<div class="quick-title">
+    Manage Queue
+</div>
+
+<div class="quick-desc">
+    Call and update customers
+</div>
+
+</div>
+
+
+
+<div class="quick-action">
+
+<div class="quick-icon">
+    ✂
+</div>
+
+<div class="quick-title">
+    Add Service
+</div>
+
+<div class="quick-desc">
+    Manage your services
+</div>
+
+</div>
+
+
+
+<div class="quick-action">
+
+<div class="quick-icon">
+    ▤
+</div>
+
+<div class="quick-title">
+    Check Inventory
+</div>
+
+<div class="quick-desc">
+    View stock levels
+</div>
+
+</div>
+
+
+
+<div class="quick-action">
+
+<div class="quick-icon">
+    ₱
+</div>
+
+<div class="quick-title">
+    Record Sale
+</div>
+
+<div class="quick-desc">
+    Add today's transaction
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+</body>
+</html>

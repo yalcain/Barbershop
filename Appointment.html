@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointments | Jeff's Barbershop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #161412;
+            --black-soft: #1e1b18;
+            --black-card: #24201c;
+            --charcoal: #2b2723;
+
+            --cream: #f1ece3;
+            --cream-soft: #d8d0c3;
+
+            --grey: #8a8378;
+            --grey-light: #aaa297;
+
+            --orange: #d9661c;
+            --orange-bright: #ed7a2d;
+
+            --green: #6fc38a;
+            --red: #d96c5f;
+            --yellow: #d6a94a;
+
+            --line: #38322c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--cream);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           LAYOUT
+        ========================= */
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            background: var(--black-soft);
+            border-right: 1px solid var(--line);
+            padding: 25px 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .logo {
+            padding: 5px 12px 30px;
+        }
+
+        .logo h1 {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--orange-bright);
+        }
+
+        .logo p {
+            color: var(--grey);
+            font-size: 11px;
+            margin-top: 3px;
+            letter-spacing: 1px;
+        }
+
+        .nav-title {
+            color: var(--grey);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 12px 10px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 13px 14px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: transparent;
+            color: var(--cream-soft);
+
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+
+        .nav-item.active {
+            background: var(--orange);
+            color: white;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .logout {
+            color: var(--grey-light);
+        }
+
+        .logout:hover {
+            color: var(--red);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            padding: 30px 35px;
+        }
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-left h2 {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .topbar-left p {
+            color: var(--grey);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-info {
+            text-align: right;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .profile-info span {
+            color: var(--grey);
+            font-size: 11px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            background: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+            color: white;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0 22px;
+        }
+
+        .page-header h3 {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+
+        .page-header p {
+            color: var(--grey);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .btn-primary {
+            border: none;
+            background: var(--orange);
+            color: white;
+
+            padding: 12px 18px;
+            border-radius: 8px;
+
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-bright);
+            transform: translateY(-1px);
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--black-card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: var(--grey);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+
+            background: rgba(217, 102, 28, 0.12);
+            color: var(--orange-bright);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-value {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .stat-note {
+            color: var(--grey);
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        /* =========================
+           FILTER AREA
+        ========================= */
+
+        .filter-card {
+            background: var(--black-card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .filter-group label {
+            color: var(--grey);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-input,
+        .filter-select {
+            width: 100%;
+            height: 42px;
+
+            background: var(--black-soft);
+            color: var(--cream);
+
+            border: 1px solid var(--line);
+            border-radius: 8px;
+
+            padding: 0 12px;
+
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+
+            outline: none;
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            border-color: var(--orange);
+        }
+
+        .clear-btn {
+            height: 42px;
+            padding: 0 16px;
+
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--cream-soft);
+
+            border-radius: 8px;
+
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .clear-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange-bright);
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-card {
+            background: var(--black-card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--line);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .table-header span {
+            color: var(--grey);
+            font-size: 11px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            text-align: left;
+
+            color: var(--grey);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            font-weight: 600;
+
+            padding: 14px 18px;
+
+            background: var(--black-soft);
+            border-bottom: 1px solid var(--line);
+        }
+
+        td {
+            padding: 15px 18px;
+            border-bottom: 1px solid var(--line);
+
+            color: var(--cream-soft);
+            font-size: 12px;
+        }
+
+        tbody tr {
+            transition: 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .customer-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+
+            background: var(--charcoal);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--cream);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .customer-info strong {
+            display: block;
+            color: var(--cream);
+            font-size: 12px;
+        }
+
+        .customer-info span {
+            display: block;
+            color: var(--grey);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .service {
+            color: var(--cream);
+        }
+
+        .time {
+            color: var(--cream);
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 6px 9px;
+            border-radius: 20px;
+
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status.pending {
+            color: var(--yellow);
+            background: rgba(214, 169, 74, 0.1);
+        }
+
+        .status.pending::before {
+            background: var(--yellow);
+        }
+
+        .status.confirmed {
+            color: var(--green);
+            background: rgba(111, 195, 138, 0.1);
+        }
+
+        .status.confirmed::before {
+            background: var(--green);
+        }
+
+        .status.cancelled {
+            color: var(--red);
+            background: rgba(217, 108, 95, 0.1);
+        }
+
+        .status.cancelled::before {
+            background: var(--red);
+        }
+
+        /* =========================
+           ACTIONS
+        ========================= */
+
+        .actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .action-btn {
+            border: 1px solid var(--line);
+            background: transparent;
+
+            color: var(--cream-soft);
+
+            border-radius: 6px;
+            padding: 7px 9px;
+
+            font-size: 10px;
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .action-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange-bright);
+        }
+
+        .action-btn.confirm:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .action-btn.cancel:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.7);
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 480px;
+
+            background: var(--black-card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+
+            padding: 25px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .modal-header h3 {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            border: none;
+            background: transparent;
+
+            color: var(--grey);
+            font-size: 22px;
+
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--cream);
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row span:first-child {
+            color: var(--grey);
+            font-size: 11px;
+        }
+
+        .detail-row span:last-child {
+            color: var(--cream);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 20px 10px;
+            }
+
+            .logo {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .logo h1 {
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .logo p,
+            .nav-title,
+            .nav-item span:last-child {
+                display: none;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 13px 5px;
+            }
+
+            .main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+                padding: 25px 20px;
+            }
+
+            .topbar-left h2 {
+                font-size: 26px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .page-header {
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                flex-direction: column;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .topbar-left p {
+                max-width: 200px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h1>Jeff's <span>Hub</span></h1>
+            <p>Barbershop Management</p>
+        </div>
+
+        <div class="nav-title">
+            Main Menu
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="live queueing.html" class="nav-item">
+                <span class="nav-icon">◷</span>
+                <span>Live Queue</span>
+            </a>
+
+            <a href="appointments.html" class="nav-item active">
+                <span class="nav-icon">▣</span>
+                <span>Appointments</span>
+            </a>
+
+            <a href="services.html" class="nav-item">
+                <span class="nav-icon">✂</span>
+                <span>Services</span>
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Inventory</span>
+            </a>
+
+            <a href="sales.html" class="nav-item">
+                <span class="nav-icon">₱</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="staff.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Staff</span>
+            </a>
+
+            <a href="reports.html" class="nav-item">
+                <span class="nav-icon">▥</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="login.html" class="nav-item logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div class="topbar-left">
+
+                <h2>Appointments</h2>
+
+                <p>
+                    Manage and monitor customer appointments
+                </p>
+
+            </div>
+
+            <div class="admin-profile">
+
+                <div class="profile-info">
+                    <strong>Admin</strong>
+                    <span>Jeff's Barbershop</span>
+                </div>
+
+                <div class="avatar">
+                    AD
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <div>
+                <h3>Appointment Management</h3>
+
+                <p>
+                    View, confirm, and manage today's appointments.
+                </p>
+            </div>
+
+            <button class="btn-primary" onclick="openAddAppointment()">
+                + Add Appointment
+            </button>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Total Today
+                    </span>
+
+                    <span class="stat-icon">
+                        ▣
+                    </span>
+                </div>
+
+                <div class="stat-value" id="totalToday">
+                    12
+                </div>
+
+                <div class="stat-note">
+                    appointments scheduled
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Pending
+                    </span>
+
+                    <span class="stat-icon">
+                        ◷
+                    </span>
+                </div>
+
+                <div class="stat-value" id="pendingCount">
+                    4
+                </div>
+
+                <div class="stat-note">
+                    waiting for confirmation
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Confirmed
+                    </span>
+
+                    <span class="stat-icon">
+                        ✓
+                    </span>
+                </div>
+
+                <div class="stat-value" id="confirmedCount">
+                    7
+                </div>
+
+                <div class="stat-note">
+                    confirmed appointments
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Cancelled
+                    </span>
+
+                    <span class="stat-icon">
+                        ×
+                    </span>
+                </div>
+
+                <div class="stat-value" id="cancelledCount">
+                    1
+                </div>
+
+                <div class="stat-note">
+                    cancelled today
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FILTERS -->
+
+        <section class="filter-card">
+
+            <div class="filters">
+
+                <div class="filter-group">
+
+                    <label>
+                        Search Customer
+                    </label>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="filter-input"
+                        placeholder="Search name or service..."
+                        oninput="filterAppointments()"
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dateFilter"
+                        class="filter-input"
+                        onchange="filterAppointments()"
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <select
+                        id="statusFilter"
+                        class="filter-select"
+                        onchange="filterAppointments()"
+                    >
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Confirmed">
+                            Confirmed
+                        </option>
+
+                        <option value="Cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="clear-btn"
+                    onclick="clearFilters()"
+                >
+                    Clear Filters
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- APPOINTMENT TABLE -->
+
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <h4>
+                    Appointment List
+                </h4>
+
+                <span id="resultCount">
+                    12 appointments
+                </span>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Service
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Barber
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="appointmentTable">
+
+                        <!-- ROW 1 -->
+
+                        <tr
+                            data-name="Juan Dela Cruz"
+                            data-service="Skin Fade"
+                            data-date="2026-10-01"
+                            data-status="Confirmed"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        JD
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Juan Dela Cruz
+                                        </strong>
+
+                                        <span>
+                                            #APT-001
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Skin Fade
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                9:00 AM
+                            </td>
+
+                            <td>
+                                Jeff
+                            </td>
+
+                            <td>
+
+                                <span class="status confirmed">
+                                    Confirmed
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Juan Dela Cruz','Skin Fade','Oct 01, 2026','9:00 AM','Jeff','Confirmed')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn cancel"
+                                        onclick="cancelAppointment(this)"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 2 -->
+
+                        <tr
+                            data-name="Maria Santos"
+                            data-service="Classic Cut"
+                            data-date="2026-10-01"
+                            data-status="Pending"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        MS
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Maria Santos
+                                        </strong>
+
+                                        <span>
+                                            #APT-002
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Classic Cut
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                9:30 AM
+                            </td>
+
+                            <td>
+                                Jeff
+                            </td>
+
+                            <td>
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Maria Santos','Classic Cut','Oct 01, 2026','9:30 AM','Jeff','Pending')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn confirm"
+                                        onclick="confirmAppointment(this)"
+                                    >
+                                        Confirm
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 3 -->
+
+                        <tr
+                            data-name="Pedro Cruz"
+                            data-service="Beard Trim"
+                            data-date="2026-10-01"
+                            data-status="Confirmed"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        PC
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Pedro Cruz
+                                        </strong>
+
+                                        <span>
+                                            #APT-003
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Beard Trim
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                10:00 AM
+                            </td>
+
+                            <td>
+                                Mark
+                            </td>
+
+                            <td>
+
+                                <span class="status confirmed">
+                                    Confirmed
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Pedro Cruz','Beard Trim','Oct 01, 2026','10:00 AM','Mark','Confirmed')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn cancel"
+                                        onclick="cancelAppointment(this)"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 4 -->
+
+                        <tr
+                            data-name="Ana Reyes"
+                            data-service="Cut + Beard"
+                            data-date="2026-10-01"
+                            data-status="Pending"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        AR
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Ana Reyes
+                                        </strong>
+
+                                        <span>
+                                            #APT-004
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Cut + Beard
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                10:30 AM
+                            </td>
+
+                            <td>
+                                Jeff
+                            </td>
+
+                            <td>
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Ana Reyes','Cut + Beard','Oct 01, 2026','10:30 AM','Jeff','Pending')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn confirm"
+                                        onclick="confirmAppointment(this)"
+                                    >
+                                        Confirm
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 5 -->
+
+                        <tr
+                            data-name="Kevin Lim"
+                            data-service="Premium Cut"
+                            data-date="2026-10-01"
+                            data-status="Confirmed"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        KL
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Kevin Lim
+                                        </strong>
+
+                                        <span>
+                                            #APT-005
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Premium Cut
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                11:00 AM
+                            </td>
+
+                            <td>
+                                Mark
+                            </td>
+
+                            <td>
+
+                                <span class="status confirmed">
+                                    Confirmed
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Kevin Lim','Premium Cut','Oct 01, 2026','11:00 AM','Mark','Confirmed')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn cancel"
+                                        onclick="cancelAppointment(this)"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 6 -->
+
+                        <tr
+                            data-name="Sofia Garcia"
+                            data-service="Classic Cut"
+                            data-date="2026-10-01"
+                            data-status="Pending"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        SG
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Sofia Garcia
+                                        </strong>
+
+                                        <span>
+                                            #APT-006
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Classic Cut
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                11:30 AM
+                            </td>
+
+                            <td>
+                                Jeff
+                            </td>
+
+                            <td>
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Sofia Garcia','Classic Cut','Oct 01, 2026','11:30 AM','Jeff','Pending')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn confirm"
+                                        onclick="confirmAppointment(this)"
+                                    >
+                                        Confirm
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 7 -->
+
+                        <tr
+                            data-name="Mark Villanueva"
+                            data-service="Skin Fade"
+                            data-date="2026-10-01"
+                            data-status="Confirmed"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        MV
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Mark Villanueva
+                                        </strong>
+
+                                        <span>
+                                            #APT-007
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Skin Fade
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                1:00 PM
+                            </td>
+
+                            <td>
+                                Mark
+                            </td>
+
+                            <td>
+
+                                <span class="status confirmed">
+                                    Confirmed
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Mark Villanueva','Skin Fade','Oct 01, 2026','1:00 PM','Mark','Confirmed')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn cancel"
+                                        onclick="cancelAppointment(this)"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ROW 8 -->
+
+                        <tr
+                            data-name="Liza Ramos"
+                            data-service="Haircut + Shampoo"
+                            data-date="2026-10-01"
+                            data-status="Confirmed"
+                        >
+
+                            <td>
+
+                                <div class="customer">
+
+                                    <div class="customer-avatar">
+                                        LR
+                                    </div>
+
+                                    <div class="customer-info">
+
+                                        <strong>
+                                            Liza Ramos
+                                        </strong>
+
+                                        <span>
+                                            #APT-008
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="service">
+                                Haircut + Shampoo
+                            </td>
+
+                            <td>
+                                Oct 01, 2026
+                            </td>
+
+                            <td class="time">
+                                1:30 PM
+                            </td>
+
+                            <td>
+                                Jeff
+                            </td>
+
+                            <td>
+
+                                <span class="status confirmed">
+                                    Confirmed
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="action-btn"
+                                        onclick="viewAppointment('Liza Ramos','Haircut + Shampoo','Oct 01, 2026','1:30 PM','Jeff','Confirmed')"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        class="action-btn cancel"
+                                        onclick="cancelAppointment(this)"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     VIEW MODAL
+========================== -->
+
+<div class="modal" id="viewModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>Appointment Details</h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="details">
+
+            <div class="detail-row">
+                <span>Customer</span>
+                <span id="detailName"></span>
+            </div>
+
+            <div class="detail-row">
+                <span>Service</span>
+                <span id="detailService"></span>
+            </div>
+
+            <div class="detail-row">
+                <span>Date</span>
+                <span id="detailDate"></span>
+            </div>
+
+            <div class="detail-row">
+                <span>Time</span>
+                <span id="detailTime"></span>
+            </div>
+
+            <div class="detail-row">
+                <span>Barber</span>
+                <span id="detailBarber"></span>
+            </div>
+
+            <div class="detail-row">
+                <span>Status</span>
+                <span id="detailStatus"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       FILTER APPOINTMENTS
+    ========================== */
+
+    function filterAppointments() {
+
+        const search =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+        const date =
+            document
+                .getElementById("dateFilter")
+                .value;
+
+        const status =
+            document
+                .getElementById("statusFilter")
+                .value;
+
+        const rows =
+            document.querySelectorAll(
+                "#appointmentTable tr"
+            );
+
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+
+            const name =
+                row.dataset.name.toLowerCase();
+
+            const service =
+                row.dataset.service.toLowerCase();
+
+            const rowDate =
+                row.dataset.date;
+
+            const rowStatus =
+                row.dataset.status;
+
+            const matchesSearch =
+                name.includes(search) ||
+                service.includes(search);
+
+            const matchesDate =
+                !date ||
+                rowDate === date;
+
+            const matchesStatus =
+                status === "all" ||
+                rowStatus === status;
+
+            if (
+                matchesSearch &&
+                matchesDate &&
+                matchesStatus
+            ) {
+
+                row.style.display = "";
+
+                visibleCount++;
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+        document.getElementById("resultCount").textContent =
+            visibleCount + " appointment" +
+            (visibleCount !== 1 ? "s" : "");
+
+    }
+
+
+    /* =========================
+       CLEAR FILTERS
+    ========================== */
+
+    function clearFilters() {
+
+        document.getElementById("searchInput").value = "";
+
+        document.getElementById("dateFilter").value = "";
+
+        document.getElementById("statusFilter").value = "all";
+
+        filterAppointments();
+
+    }
+
+
+    /* =========================
+       VIEW APPOINTMENT
+    ========================== */
+
+    function viewAppointment(
+        name,
+        service,
+        date,
+        time,
+        barber,
+        status
+    ) {
+
+        document.getElementById("detailName").textContent =
+            name;
+
+        document.getElementById("detailService").textContent =
+            service;
+
+        document.getElementById("detailDate").textContent =
+            date;
+
+        document.getElementById("detailTime").textContent =
+            time;
+
+        document.getElementById("detailBarber").textContent =
+            barber;
+
+        document.getElementById("detailStatus").textContent =
+            status;
+
+        document
+            .getElementById("viewModal")
+            .classList.add("show");
+
+    }
+
+
+    /* =========================
+       CLOSE MODAL
+    ========================== */
+
+    function closeModal() {
+
+        document
+            .getElementById("viewModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* =========================
+       CONFIRM APPOINTMENT
+    ========================== */
+
+    function confirmAppointment(button) {
+
+        const row =
+            button.closest("tr");
+
+        const customer =
+            row.dataset.name;
+
+        const confirmed =
+            confirm(
+                "Confirm appointment for " +
+                customer +
+                "?"
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        row.dataset.status = "Confirmed";
+
+        const statusElement =
+            row.querySelector(".status");
+
+        statusElement.className =
+            "status confirmed";
+
+        statusElement.textContent =
+            "Confirmed";
+
+        button.remove();
+
+        updateStats();
+
+    }
+
+
+    /* =========================
+       CANCEL APPOINTMENT
+    ========================== */
+
+    function cancelAppointment(button) {
+
+        const row =
+            button.closest("tr");
+
+        const customer =
+            row.dataset.name;
+
+        const cancelled =
+            confirm(
+                "Cancel appointment for " +
+                customer +
+                "?"
+            );
+
+        if (!cancelled) {
+            return;
+        }
+
+        row.dataset.status = "Cancelled";
+
+        const statusElement =
+            row.querySelector(".status");
+
+        statusElement.className =
+            "status cancelled";
+
+        statusElement.textContent =
+            "Cancelled";
+
+        button.remove();
+
+        updateStats();
+
+    }
+
+
+    /* =========================
+       UPDATE STATS
+    ========================== */
+
+    function updateStats() {
+
+        const rows =
+            document.querySelectorAll(
+                "#appointmentTable tr"
+            );
+
+        let pending = 0;
+        let confirmed = 0;
+        let cancelled = 0;
+
+        rows.forEach(row => {
+
+            if (row.dataset.status === "Pending") {
+                pending++;
+            }
+
+            if (row.dataset.status === "Confirmed") {
+                confirmed++;
+            }
+
+            if (row.dataset.status === "Cancelled") {
+                cancelled++;
+            }
+
+        });
+
+        const total =
+            pending +
+            confirmed +
+            cancelled;
+
+        document.getElementById("totalToday").textContent =
+            total;
+
+        document.getElementById("pendingCount").textContent =
+            pending;
+
+        document.getElementById("confirmedCount").textContent =
+            confirmed;
+
+        document.getElementById("cancelledCount").textContent =
+            cancelled;
+
+    }
+
+
+    /* =========================
+       ADD APPOINTMENT
+    ========================== */
+
+    function openAddAppointment() {
+
+        alert(
+            "Add Appointment form will be connected here."
+        );
+
+    }
+
+
+    /* =========================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+    ========================== */
+
+    document
+        .getElementById("viewModal")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === this) {
+                    closeModal();
+                }
+
+            }
+        );
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Live Queueing - Jeff's Barbershop Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --black: #161412;
+    --black-soft: #1e1b18;
+    --black-card: #24201c;
+
+    --charcoal: #2b2723;
+
+    --cream: #f1ece3;
+    --cream-soft: #d8d0c3;
+
+    --grey: #8a8378;
+    --grey-light: #aaa297;
+
+    --orange: #d9661c;
+    --orange-bright: #ed7a2d;
+
+    --green: #6fc38a;
+    --red: #d96c5f;
+    --yellow: #d6a94a;
+
+    --line: #38322c;
+
+    --display: 'Big Shoulders Display', sans-serif;
+    --body: 'Inter', sans-serif;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--body);
+    min-height: 100vh;
+}
+
+
+button {
+    font-family: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   ADMIN LAYOUT
+========================================= */
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+    width: 245px;
+
+    background: #12110f;
+
+    border-right: 1px solid var(--line);
+
+    padding: 25px 16px;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 50;
+}
+
+
+/* LOGO */
+
+.logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 5px 10px 28px;
+
+    border-bottom: 1px solid var(--line);
+
+    margin-bottom: 24px;
+}
+
+
+.logo-pole {
+    width: 12px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            var(--orange) 0 6px,
+            var(--cream) 6px 12px,
+            var(--charcoal) 12px 18px
+        );
+}
+
+
+.logo-text {
+    font-family: var(--display);
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 0.9;
+}
+
+
+.admin-label {
+    font-size: 10px;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
+
+    color: var(--grey);
+
+    margin-top: 4px;
+}
+
+
+/* NAV */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.nav-section {
+    color: var(--grey);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+
+    padding: 14px 12px 7px;
+}
+
+
+.nav-item {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--grey-light);
+
+    padding: 12px 13px;
+
+    border-radius: 5px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 13.5px;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    transition: 0.15s ease;
+}
+
+
+.nav-item:hover {
+    background: var(--black-card);
+
+    color: var(--cream);
+}
+
+
+.nav-item.active {
+    background: rgba(217, 102, 28, 0.14);
+
+    color: var(--orange-bright);
+
+    border-left: 3px solid var(--orange);
+
+    padding-left: 10px;
+}
+
+
+.nav-icon {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+
+/* SIDEBAR BOTTOM */
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--line);
+}
+
+
+.admin-profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px;
+}
+
+
+.admin-avatar {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+
+    color: var(--black);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+
+    font-size: 13px;
+}
+
+
+.admin-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.admin-role {
+    font-size: 11px;
+    color: var(--grey);
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main {
+    margin-left: 245px;
+
+    width: calc(100% - 245px);
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.topbar {
+    height: 72px;
+
+    padding: 0 32px;
+
+    border-bottom: 1px solid var(--line);
+
+    background: rgba(22, 20, 18, 0.95);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 30;
+}
+
+
+.page-title {
+    font-family: var(--display);
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+
+.page-subtitle {
+    color: var(--grey);
+
+    font-size: 12px;
+
+    margin-top: 2px;
+}
+
+
+.topbar-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.live-indicator {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: var(--green);
+
+    letter-spacing: 0.08em;
+}
+
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow: 0 0 0 4px rgba(111, 195, 138, 0.08);
+}
+
+
+.notification {
+    width: 35px;
+    height: 35px;
+
+    border: 1px solid var(--line);
+
+    background: var(--black-card);
+
+    color: var(--cream);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+}
+
+
+.top-admin {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.top-admin-avatar {
+    width: 34px;
+    height: 34px;
+
+    background: var(--orange);
+
+    color: var(--black);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    font-size: 12px;
+}
+
+
+.top-admin-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content {
+    padding: 30px 32px 50px;
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+
+.page-heading h1 {
+    font-family: var(--display);
+
+    font-size: 40px;
+
+    line-height: 1;
+
+    font-weight: 800;
+}
+
+
+.page-heading p {
+    color: var(--grey-light);
+
+    font-size: 13px;
+
+    margin-top: 7px;
+}
+
+
+/* =========================================
+   STAT CARDS
+========================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+}
+
+
+.stat-card {
+    background: var(--black-card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 6px;
+
+    padding: 18px 20px;
+
+    position: relative;
+}
+
+
+.stat-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.stat-label {
+    font-size: 10px;
+
+    color: var(--grey);
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.09em;
+
+    font-weight: 600;
+}
+
+
+.stat-icon {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 4px;
+
+    background: rgba(217, 102, 28, 0.1);
+
+    color: var(--orange-bright);
+
+    font-size: 14px;
+}
+
+
+.stat-number {
+    font-family: var(--display);
+
+    font-size: 35px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    margin-top: 14px;
+}
+
+
+.stat-description {
+    color: var(--grey);
+
+    font-size: 10px;
+
+    margin-top: 7px;
+}
+
+
+/* =========================================
+   NOW SERVING
+========================================= */
+
+.now-serving {
+    background: var(--black-card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 6px;
+
+    margin-bottom: 22px;
+
+    overflow: hidden;
+}
+
+
+.now-header {
+    padding: 17px 20px;
+
+    border-bottom: 1px solid var(--line);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.now-title {
+    font-family: var(--display);
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.live-badge {
+    color: var(--green);
+
+    background: rgba(111, 195, 138, 0.1);
+
+    border: 1px solid rgba(111, 195, 138, 0.2);
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+.now-content {
+    padding: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+
+.now-customer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.big-queue-number {
+    width: 82px;
+    height: 82px;
+
+    border-radius: 5px;
+
+    background: rgba(217, 102, 28, 0.12);
+
+    border: 1px solid rgba(217, 102, 28, 0.25);
+
+    color: var(--orange-bright);
+
+    font-family: var(--display);
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.now-details h2 {
+    font-family: var(--display);
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+
+.now-details p {
+    color: var(--grey-light);
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+
+.now-details span {
+    color: var(--orange-bright);
+}
+
+
+.now-actions {
+    display: flex;
+
+    gap: 8px;
+}
+
+
+.btn {
+    padding: 11px 18px;
+
+    border-radius: 4px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    border: none;
+}
+
+
+.btn-complete {
+    background: var(--orange);
+
+    color: var(--black);
+}
+
+
+.btn-complete:hover {
+    background: var(--orange-bright);
+}
+
+
+.btn-skip {
+    background: var(--charcoal);
+
+    color: var(--cream);
+
+    border: 1px solid var(--line);
+}
+
+
+/* =========================================
+   QUEUE PANEL
+========================================= */
+
+.queue-panel {
+    background: var(--black-card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 6px;
+
+    overflow: hidden;
+}
+
+
+.queue-header {
+    padding: 18px 20px;
+
+    border-bottom: 1px solid var(--line);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.queue-title {
+    font-family: var(--display);
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.queue-header-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.queue-date {
+    color: var(--grey);
+
+    font-size: 11px;
+}
+
+
+.refresh-btn {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 4px;
+
+    border: 1px solid var(--line);
+
+    background: var(--black);
+
+    color: var(--grey-light);
+
+    font-size: 13px;
+}
+
+
+.refresh-btn:hover {
+    border-color: var(--orange);
+
+    color: var(--orange-bright);
+}
+
+
+/* =========================================
+   QUEUE TABLE
+========================================= */
+
+.queue-table-wrapper {
+    overflow-x: auto;
+}
+
+
+.queue-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 800px;
+}
+
+
+.queue-table th {
+    padding: 13px 20px;
+
+    text-align: left;
+
+    font-size: 9px;
+
+    color: var(--grey);
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.09em;
+
+    font-weight: 600;
+
+    background: rgba(0, 0, 0, 0.12);
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.queue-table td {
+    padding: 16px 20px;
+
+    font-size: 12px;
+
+    border-bottom: 1px solid rgba(56, 50, 44, 0.65);
+
+    color: var(--cream-soft);
+}
+
+
+.queue-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+.queue-table tr:hover {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+
+.queue-num {
+    font-family: var(--display);
+
+    color: var(--orange-bright);
+
+    font-size: 21px;
+
+    font-weight: 800;
+}
+
+
+.customer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.customer-avatar {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: var(--charcoal);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--cream);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.customer-name {
+    color: var(--cream);
+
+    font-weight: 600;
+
+    font-size: 12px;
+}
+
+
+.customer-phone {
+    color: var(--grey);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+}
+
+
+.service {
+    color: var(--grey-light);
+}
+
+
+.time {
+    color: var(--grey-light);
+
+    font-size: 11px;
+}
+
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+.status.waiting {
+    color: var(--yellow);
+
+    background: rgba(214, 169, 74, 0.11);
+}
+
+
+.status.serving {
+    color: var(--green);
+
+    background: rgba(111, 195, 138, 0.11);
+}
+
+
+.status.completed {
+    color: var(--grey-light);
+
+    background: rgba(138, 131, 120, 0.1);
+}
+
+
+.status.cancelled {
+    color: var(--red);
+
+    background: rgba(217, 108, 95, 0.1);
+}
+
+
+/* =========================================
+   TABLE ACTIONS
+========================================= */
+
+.table-actions {
+    display: flex;
+
+    gap: 6px;
+}
+
+
+.table-btn {
+    padding: 7px 11px;
+
+    border-radius: 3px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    border: 1px solid var(--line);
+
+    background: transparent;
+
+    color: var(--grey-light);
+}
+
+
+.table-btn:hover {
+    border-color: var(--orange);
+
+    color: var(--orange-bright);
+}
+
+
+.table-btn.start {
+    background: var(--orange);
+
+    border-color: var(--orange);
+
+    color: var(--black);
+}
+
+
+.table-btn.start:hover {
+    background: var(--orange-bright);
+
+    border-color: var(--orange-bright);
+}
+
+
+/* =========================================
+   EMPTY AREA
+========================================= */
+
+.empty-message {
+    padding: 55px 20px;
+
+    text-align: center;
+
+    color: var(--grey);
+}
+
+
+.empty-icon {
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+
+.empty-message h3 {
+    color: var(--cream-soft);
+
+    font-family: var(--display);
+
+    font-size: 21px;
+}
+
+
+.empty-message p {
+    font-size: 11px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 70px;
+
+        padding: 20px 8px;
+    }
+
+
+    .logo-text,
+    .admin-label,
+    .nav-section,
+    .nav-item span:not(.nav-icon),
+    .admin-name,
+    .admin-role {
+        display: none;
+    }
+
+
+    .logo {
+        justify-content: center;
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+
+    .nav-item {
+        justify-content: center;
+
+        padding: 12px 5px;
+    }
+
+
+    .nav-item.active {
+        padding-left: 5px;
+    }
+
+
+    .admin-profile {
+        justify-content: center;
+    }
+
+
+    .main {
+        margin-left: 70px;
+
+        width: calc(100% - 70px);
+    }
+
+
+    .now-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+
+    .top-admin-name {
+        display: none;
+    }
+
+
+    .live-indicator {
+        display: none;
+    }
+
+
+    .content {
+        padding: 22px 18px 40px;
+    }
+
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .page-heading h1 {
+        font-size: 34px;
+    }
+
+
+    .now-customer {
+        width: 100%;
+    }
+
+
+    .now-actions {
+        width: 100%;
+    }
+
+
+    .now-actions button {
+        flex: 1;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar">
+
+
+<div class="logo">
+
+    <div class="logo-pole"></div>
+
+    <div>
+
+        <div class="logo-text">
+            JEFF'S
+        </div>
+
+        <div class="admin-label">
+            ADMIN PANEL
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<nav class="sidebar-nav">
+
+
+<div class="nav-section">
+    Main
+</div>
+
+
+<button class="nav-item">
+    <span class="nav-icon">▦</span>
+    <span>Dashboard</span>
+</button>
+
+
+<button class="nav-item active">
+    <span class="nav-icon">◷</span>
+    <span>Live Queue</span>
+</button>
+
+
+<button class="nav-item">
+    <span class="nav-icon">▣</span>
+    <span>Appointments</span>
+</button>
+
+
+
+<div class="nav-section">
+    Management
+</div>
+
+
+<button class="nav-item">
+    <span class="nav-icon">✂</span>
+    <span>Services</span>
+</button>
+
+
+<button class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Inventory</span>
+</button>
+
+
+<button class="nav-item">
+    <span class="nav-icon">₱</span>
+    <span>Sales</span>
+</button>
+
+
+<button class="nav-item">
+    <span class="nav-icon">♙</span>
+    <span>Staff</span>
+</button>
+
+
+
+<div class="nav-section">
+    Reports
+</div>
+
+
+<button class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</button>
+
+
+
+<div class="nav-section">
+    System
+</div>
+
+
+<button class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Settings</span>
+</button>
+
+</nav>
+
+
+
+<div class="sidebar-bottom">
+
+<div class="admin-profile">
+
+    <div class="admin-avatar">
+        JA
+    </div>
+
+    <div>
+
+        <div class="admin-name">
+            Admin
+        </div>
+
+        <div class="admin-role">
+            Administrator
+        </div>
+
+    </div>
+
+</div>
+
+
+<button class="nav-item">
+
+    <span class="nav-icon">
+        ↪
+    </span>
+
+    <span>
+        Logout
+    </span>
+
+</button>
+
+</div>
+
+
+</aside>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main">
+
+
+<!-- TOPBAR -->
+
+<header class="topbar">
+
+
+<div>
+
+    <div class="page-title">
+        Live Queueing
+    </div>
+
+    <div class="page-subtitle">
+        Manage today's customer queue
+    </div>
+
+</div>
+
+
+<div class="topbar-right">
+
+
+<div class="live-indicator">
+
+    <span class="live-dot"></span>
+
+    LIVE
+
+</div>
+
+
+<button class="notification">
+    ♢
+</button>
+
+
+<div class="top-admin">
+
+    <div class="top-admin-avatar">
+        JA
+    </div>
+
+    <div class="top-admin-name">
+        Admin
+    </div>
+
+</div>
+
+
+</div>
+
+</header>
+
+
+
+<!-- CONTENT -->
+
+<div class="content">
+
+
+<!-- PAGE HEADING -->
+
+<div class="page-heading">
+
+    <h1>
+        Live Queueing
+    </h1>
+
+    <p>
+        Monitor and manage customers currently waiting for service.
+    </p>
+
+</div>
+
+
+
+<!-- =========================================
+     STATISTICS
+========================================= -->
+
+<div class="stats-grid">
+
+
+<div class="stat-card">
+
+    <div class="stat-top">
+
+        <div class="stat-label">
+            Waiting
+        </div>
+
+        <div class="stat-icon">
+            ◷
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        08
+    </div>
+
+    <div class="stat-description">
+        Customers waiting
+    </div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+    <div class="stat-top">
+
+        <div class="stat-label">
+            Serving
+        </div>
+
+        <div class="stat-icon">
+            ✂
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        01
+    </div>
+
+    <div class="stat-description">
+        Currently being served
+    </div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+    <div class="stat-top">
+
+        <div class="stat-label">
+            Completed
+        </div>
+
+        <div class="stat-icon">
+            ✓
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        15
+    </div>
+
+    <div class="stat-description">
+        Completed today
+    </div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+    <div class="stat-top">
+
+        <div class="stat-label">
+            Total Today
+        </div>
+
+        <div class="stat-icon">
+            #
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        24
+    </div>
+
+    <div class="stat-description">
+        Queue entries today
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     NOW SERVING
+========================================= -->
+
+<section class="now-serving">
+
+
+<div class="now-header">
+
+    <div class="now-title">
+        Now Serving
+    </div>
+
+    <div class="live-badge">
+        ● LIVE
+    </div>
+
+</div>
+
+
+<div class="now-content">
+
+
+<div class="now-customer">
+
+
+<div class="big-queue-number">
+    Q-001
+</div>
+
+
+<div class="now-details">
+
+    <h2>
+        Juan Dela Cruz
+    </h2>
+
+    <p>
+        Service:
+        <span>Skin Fade</span>
+    </p>
+
+    <p>
+        Barber:
+        <span>Jeff</span>
+    </p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="now-actions">
+
+    <button class="btn btn-skip">
+        Skip Customer
+    </button>
+
+    <button class="btn btn-complete">
+        Complete Service
+    </button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     QUEUE TABLE
+========================================= -->
+
+<section class="queue-panel">
+
+
+<div class="queue-header">
+
+
+<div class="queue-title">
+    Customer Queue
+</div>
+
+
+<div class="queue-header-right">
+
+    <div class="queue-date">
+        October 1, 2026
+    </div>
+
+    <button class="refresh-btn">
+        ↻
+    </button>
+
+</div>
+
+
+</div>
+
+
+
+<div class="queue-table-wrapper">
+
+
+<table class="queue-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Queue
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Service
+</th>
+
+<th>
+Appointment Time
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+<!-- CUSTOMER 1 -->
+
+<tr>
+
+<td>
+
+    <span class="queue-num">
+        Q-001
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="customer">
+
+    <div class="customer-avatar">
+        JD
+    </div>
+
+    <div>
+
+        <div class="customer-name">
+            Juan Dela Cruz
+        </div>
+
+        <div class="customer-phone">
+            0917 123 4567
+        </div>
+
+    </div>
+
+</div>
+
+</td>
+
+
+<td>
+
+    <span class="service">
+        Skin Fade
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="time">
+        9:00 AM
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="status serving">
+        Serving
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="table-actions">
+
+    <button class="table-btn">
+        View
+    </button>
+
+    <button class="table-btn">
+        Complete
+    </button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+<!-- CUSTOMER 2 -->
+
+<tr>
+
+<td>
+
+    <span class="queue-num">
+        Q-002
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="customer">
+
+    <div class="customer-avatar">
+        MS
+    </div>
+
+    <div>
+
+        <div class="customer-name">
+            Maria Santos
+        </div>
+
+        <div class="customer-phone">
+            0918 234 5678
+        </div>
+
+    </div>
+
+</div>
+
+</td>
+
+
+<td>
+
+    <span class="service">
+        Classic Cut
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="time">
+        9:30 AM
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="status waiting">
+        Waiting
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="table-actions">
+
+    <button class="table-btn start">
+        Start
+    </button>
+
+    <button class="table-btn">
+        View
+    </button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+<!-- CUSTOMER 3 -->
+
+<tr>
+
+<td>
+
+    <span class="queue-num">
+        Q-003
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="customer">
+
+    <div class="customer-avatar">
+        PC
+    </div>
+
+    <div>
+
+        <div class="customer-name">
+            Pedro Cruz
+        </div>
+
+        <div class="customer-phone">
+            0919 345 6789
+        </div>
+
+    </div>
+
+</div>
+
+</td>
+
+
+<td>
+
+    <span class="service">
+        Beard Trim
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="time">
+        10:00 AM
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="status waiting">
+        Waiting
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="table-actions">
+
+    <button class="table-btn start">
+        Start
+    </button>
+
+    <button class="table-btn">
+        View
+    </button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+<!-- CUSTOMER 4 -->
+
+<tr>
+
+<td>
+
+    <span class="queue-num">
+        Q-004
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="customer">
+
+    <div class="customer-avatar">
+        AR
+    </div>
+
+    <div>
+
+        <div class="customer-name">
+            Ana Reyes
+        </div>
+
+        <div class="customer-phone">
+            0920 456 7890
+        </div>
+
+    </div>
+
+</div>
+
+</td>
+
+
+<td>
+
+    <span class="service">
+        Cut + Beard
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="time">
+        10:30 AM
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="status waiting">
+        Waiting
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="table-actions">
+
+    <button class="table-btn start">
+        Start
+    </button>
+
+    <button class="table-btn">
+        View
+    </button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+<!-- CUSTOMER 5 -->
+
+<tr>
+
+<td>
+
+    <span class="queue-num">
+        Q-005
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="customer">
+
+    <div class="customer-avatar">
+        KL
+    </div>
+
+    <div>
+
+        <div class="customer-name">
+            Kevin Lim
+        </div>
+
+        <div class="customer-phone">
+            0921 567 8901
+        </div>
+
+    </div>
+
+</div>
+
+</td>
+
+
+<td>
+
+    <span class="service">
+        Premium Cut
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="time">
+        11:00 AM
+    </span>
+
+</td>
+
+
+<td>
+
+    <span class="status waiting">
+        Waiting
+    </span>
+
+</td>
+
+
+<td>
+
+<div class="table-actions">
+
+    <button class="table-btn start">
+        Start
+    </button>
+
+    <button class="table-btn">
+        View
+    </button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+</tbody>
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+</div>
+
+</main>
+
+
+</div>
+
+
+</body>
+</html>
